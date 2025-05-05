@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <iostream>
+using namespace std;
 #define ll long long int
 #define pb push_back
 #define pob pop_back
@@ -17,66 +17,67 @@
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
 #define n1 cout << "-1" << endl
-#define bug cout << "ok" nl
+#define ok cout << "ok" nl
 #define sorted is_sorted(v.begin(), v.end())
 #define nl << endl
 #define sp << " "
 #define mp make_pair
 #define fi first
 #define se second
-#define Mx LLONG_MAX
-#define Mn LLONG_MIN
+#define inf LLONG_MAX
 #define mod %1000000007
 // ordered_set
 #include <ext/pb_ds/assoc_container.hpp> 
 #include <ext/pb_ds/tree_policy.hpp> 
 using namespace __gnu_pbds;   
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// bitsize-> ll size=log2(n)+1 (last set bit=size-1; )
+// bitsize-> ll size=log2(n)+1 (last set bit=size-1;/ /Last bit->__lg(value); )
 // first bit-> name._Find_First()
 // next bit after x-> name._Find_next()
 // freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
 // BesidesDuplicateCharacterEraseInString s.erase(unique(s.begin(), s.end()), s.end());
 // Upper/lower-> transform(s.begin(), s.end(), s.begin(), ::toupper/tolower);
-using namespace std;
-ll i, j, k, n, m;
-const ll N = 2e5+5;
-const ll e=1e+9;
-const double pi=acos(-1);
-bool comp(pair<long double,ll> a,pair<long double,ll> b){
-    if(a.fi==b.fi) return (a.se<b.se); return (a.fi>b.fi);}
+
+ll i, j, k, n, m, e=1e9;
+const ll N = 2e6+5;
+double pi=acos(-1);
+bool cmp(pair<ll,ll> a,pair<ll,ll> b){
+    if(a.fi==b.fi) return (a.se>b.se); return (a.fi>b.fi);}
+
 //
 // Don't get stuck on a single approach for long, think of multiple ways
 // You will destroy your dream if you stay in your comfort zone
 // **********************|| Main Code ||********************************
 //
  
+//  g++ test.cpp -o a && ./a
+//  g++ -o a test.cpp && ./a
+//  g++ -o a test.cpp && a.e
+
+
 int main()
 { 
     ios::sync_with_stdio(0);
     cin.tie(nullptr);
-    point;
-    ll test = 1; 
-    cin >> test;    
+    // point;
+    int test = 1; 
+    // cin >> test;    
     again: 
     while (test--)
-    {         
-        string t1,t2;
-        cin>>t1>>t2;
-        t1='1'+t1;
-        t2='1'+t2;
-        int n=t1.size(),n2=t2.size();
-        vector<vector<int>> v(n,vector<int> (n2,0));
-        for(int i=1;i<n;i++){
-            for(int j=1;j<n2;j++){
-                if(t1[i]==t2[j]){
-                    v[i][j]=v[i-1][j-1]+1;
+    {   
+        ll n,m; string s,t;
+        cin>>n>>m>>s>>t;
+        s='a'+s,t='a'+t;
+        vector<vector<ll>> lcs(n+1,vector<ll> (m+1));        
+        for(i=1;i<=n;i++){
+            for(j=1;j<=m;j++){
+                if(s[i]==t[j]){
+                    lcs[i][j]=lcs[i-1][j-1]+1;
+                }else{
+                    lcs[i][j]=max({lcs[i-1][j-1],lcs[i][j-1],lcs[i-1][j]});
                 }
-                else{
-                    v[i][j]=max(v[i][j-1],v[i-1][j]);
-                }
-            }
-        }
-        cout << v[n-1].back() nl;
-    }       
+            }            
+        }         
+        cout << lcs[n][m] nl;
+    }
 }
