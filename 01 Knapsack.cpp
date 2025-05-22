@@ -70,10 +70,9 @@ int main()
         }
         vector<vector<ll>> dp(item+1,vector<ll> (max_capacity+1));       
         for(i=1;i<=item;i++){
-            for(j=1;j<=max_capacity;j++){
-                if(j<weight[i]){
-                    dp[i][j]=dp[i-1][j];
-                }else{
+            for(j=1;j<=max_capacity;j++){                
+                dp[i][j]=dp[i-1][j];
+                if(weight[i]<=j){
                     dp[i][j]=max(dp[i-1][j],value[i]+dp[i-1][j-weight[i]]);
                 }
             }
