@@ -72,7 +72,7 @@ int main()
         for(i=1;i<=n;i++){
             for(j=1;j<=total;j++){
                 dp[i][j]=dp[i-1][j];
-                if(j-coins[i]>=0){
+                if(coins[i]<=j){
                     dp[i][j]=(dp[i][j] or dp[i-1][j-coins[i]]);
                 }
             }
